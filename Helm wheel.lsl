@@ -1,0 +1,32 @@
+/*
+
+Helm wheel autoconfiguring script. If your boat has a wheel prim, drop this in. 
+The prim must be named 'steer'
+
+*/
+
+rotation initRot;
+default
+{
+    state_entry()
+    {
+        initRot = llGetLocalRot();
+        llSetObjectName("steer");
+    }
+    
+    link_message(integer from, integer num, string turn, key id)
+    {
+
+        if (num == 887) 
+        {
+            float f = (float)turn;
+            if (f >0) f = -0.1;
+            else if (f <0) f = 0.1;
+            else f =0;
+            
+            llSetLocalRot(llEuler2Rot(<0,0, f> ) *initRot );
+        }
+        else if (turn == "reset") llSetLocalRot(initRot);
+    }
+}
+
