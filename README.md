@@ -1,0 +1,2 @@
+# SFsail
+OpenSim Sailing engine
